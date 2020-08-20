@@ -19,7 +19,12 @@ const Background = styled.div`
     padding: 3em;
 `
 
-const NoticeBoard = (props) => {
+interface NoticeBoardProps {
+    concluded: boolean;
+    correct: number;
+} 
+
+const NoticeBoard:React.FC<NoticeBoardProps> = props => {
 
     const dispatch = useDispatch();
     
@@ -41,7 +46,7 @@ const NoticeBoard = (props) => {
             <React.Fragment>
                 <h3>Oh no, you have run out of time!</h3>
                 <p> You have scored a total of {props.correct}</p>
-                <Button type='secondary' clicked={() => playAgain()}>PLAY AGAIN</Button>
+                <Button btntype='secondary' clicked={() => playAgain()}>PLAY AGAIN</Button>
             </React.Fragment>
         )
     }
@@ -51,7 +56,7 @@ const NoticeBoard = (props) => {
             <React.Fragment>
                 <h2> Welcome to the Quickster Quiz Challenge!</h2>
                 <p>Are you ready to find out how good you are at quizes? See how many you can answer correctly in 1 minute!</p>
-                <Button type='primary' clicked={() => beginQuiz()}>Begin Quiz</Button>
+                <Button btntype='primary' clicked={() => beginQuiz()}>Begin Quiz</Button>
             </React.Fragment>
         )
     }

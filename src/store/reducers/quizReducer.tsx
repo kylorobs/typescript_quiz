@@ -1,34 +1,36 @@
 import * as actionTypes from '../actions/actionTypes';
+import { quizState, actionType } from '../types';
 
-const initialState = {
+const initialState:quizState = {
     quizdata: [
         {
             question: 'WHat is your name?', 
             options: [{option: 'a', text: 'Kyle'}, {option: 'b', text: 'Kylo'}],
             answer: 'b',
-            submitted: null
+            submitted: false
         },
         {
             question: 'Who is Genghis Khan?', 
             options: [{option: 'a', text: 'who cares'}, {option: 'b', text: 'famous warrios'}],
             answer: 'b',
-            submitted: null
+            submitted: false
         },
         {
             question: 'What year did humans visit the moon?', 
             options: [{option: 'a', text: '1970'}, {option: 'b', text: '1967'}],
             answer: 'b',
-            submitted: null
+            submitted: false
         },
     ],        
     correct: 0,
     currentIndex: 0,
     concluded: false,
     active: false,
-    bestScore: null
+    bestScore: 0
 };
 
-const quizReducer = (state = initialState, action ) => {
+
+const quizReducer = (state:quizState = initialState, action:actionType ) : quizState => {
     switch(action.type){
         case actionTypes.FETCHQUIZ :
             return state;

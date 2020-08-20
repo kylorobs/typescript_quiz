@@ -5,6 +5,7 @@ import {Colors} from '../constants/colors';
 import NoticeBoard from '../components/NoticeBoard';
 import Button from '../components/Button';
 import * as actions from '../store/actions';
+import { quizState } from '../store/types';
 
 const Container = styled.section`
     height: 80vh;
@@ -29,29 +30,26 @@ const Options = styled.div`
     justify-content: center;
 `
 
-const Quiz = () => {
-    const quizdata = useSelector(state => state.quizdata);
-    const active = useSelector(state => state.active);
-    const current = useSelector(state => state.currentIndex)
-    const correct = useSelector(state => state.correct);
-    const concluded = useSelector(state => state.concluded);
+const Quiz: React.FC = () => {
+    const quizdata = useSelector((state:quizState)=> state.quizdata);
+    const active = useSelector((state:quizState) => state.active);
+    const current = useSelector((state:quizState) => state.currentIndex)
+    const correct = useSelector((state:quizState) => state.correct);
+    const concluded = useSelector((state:quizState) => state.concluded);
     
     const dispatch = useDispatch();
 
-    const submitanswer = (submitted) => {
+    const submitanswer = (submitted: string) => {
         if (submitted === quizdata[current].answer) dispatch(actions.answeredCorrect())
         else dispatch(actions.answeredWrong())
     }
 
-    const 
 
     if (!active){
         return (
             <Container>
                 <NoticeBoard
                     concluded={concluded}
-                    current={current}
-                    active={active}
                     correct={correct}
                 ></NoticeBoard>
             </Container>
@@ -63,8 +61,6 @@ const Quiz = () => {
             <Container>
                 <NoticeBoard
                     concluded={concluded}
-                    current={current}
-                    active={active}
                     correct={correct}
                 ></NoticeBoard>
             </Container>
@@ -78,7 +74,7 @@ const Quiz = () => {
             </Question>
             <Options>
                 {quizdata[current].options
-                    .map(option => <Button type='primary' clicked={() => submitanswer(option.option)}>{option.text}</Button>)
+                    .map(choice => <Button btntype='primary' clicked={() => submitanswer(choice.option)}>{choice.text}</Button>)
                 }
             </Options>
         </Container>
