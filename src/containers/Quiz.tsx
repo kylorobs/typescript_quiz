@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import {Colors} from '../constants/colors';
-import NoticeBoard from '../components/NoticeBoard';
+import NoticeBoard from './NoticeBoard';
 import Button from '../components/Button';
 import * as actions from '../store/actions';
 import { quizState } from '../store/types';
+import Dashboard from './Dashboard';
 
 const Container = styled.section`
     height: 80vh;
@@ -19,7 +19,7 @@ const Question = styled.div`
     padding: 1em;
 
     h4 {
-        color: ${Colors.primary};
+        color: ${props => props.theme.colors.primary};
         font-size: 3em;
         text-align: center;
     }
@@ -36,17 +36,23 @@ const Quiz: React.FC = () => {
     const current = useSelector((state:quizState) => state.currentIndex)
     const correct = useSelector((state:quizState) => state.correct);
     const concluded = useSelector((state:quizState) => state.concluded);
-    
+    const count = useSelector((state:quizState) => state.count);
+
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(actions.fetchQuiz());
+    }, [dispatch])
 
     const submitanswer = (submitted: string) => {
         if (submitted === quizdata[current].answer) dispatch(actions.answeredCorrect())
         else dispatch(actions.answeredWrong())
     }
 
+    let quizBoard:any;
 
-    if (!active){
-        return (
+    if (!active || concluded){
+        quizBoard = (
             <Container>
                 <NoticeBoard
                     concluded={concluded}
@@ -55,29 +61,26 @@ const Quiz: React.FC = () => {
             </Container>
         )
     }
+    else if (active && count === -1) quizBoard = (<p>Loading....</p>)
 
-    else if (concluded){
-        return (
-            <Container>
-                <NoticeBoard
-                    concluded={concluded}
-                    correct={correct}
-                ></NoticeBoard>
-            </Container>
-        )
-    }
-
-    else return (
+    else quizBoard = (
         <Container> 
             <Question>
                 <h4>{quizdata[current].question}</h4>
             </Question>
             <Options>
                 {quizdata[current].options
-                    .map(choice => <Button btntype='primary' clicked={() => submitanswer(choice.option)}>{choice.text}</Button>)
+                    .map((choice:string) => <Button primary clicked={() => submitanswer(choice)}>{choice}</Button>)
                 }
             </Options>
         </Container>
+    )
+
+    return (
+        <React.Fragment>
+            <Dashboard />
+             { quizBoard }
+        </React.Fragment>
     )
 }
 

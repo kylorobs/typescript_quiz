@@ -1,43 +1,39 @@
 import * as actionTypes from '../actions/actionTypes';
-import { quizState, actionType } from '../types';
+import { quizState, actionType, question, APIquizresponse } from '../types';
 
 const initialState:quizState = {
-    quizdata: [
-        {
-            question: 'WHat is your name?', 
-            options: [{option: 'a', text: 'Kyle'}, {option: 'b', text: 'Kylo'}],
-            answer: 'b',
-            submitted: false
-        },
-        {
-            question: 'Who is Genghis Khan?', 
-            options: [{option: 'a', text: 'who cares'}, {option: 'b', text: 'famous warrios'}],
-            answer: 'b',
-            submitted: false
-        },
-        {
-            question: 'What year did humans visit the moon?', 
-            options: [{option: 'a', text: '1970'}, {option: 'b', text: '1967'}],
-            answer: 'b',
-            submitted: false
-        },
-    ],        
+    quizdata: [],        
     correct: 0,
     currentIndex: 0,
     concluded: false,
     active: false,
-    bestScore: 0
+    bestScore: 0,
+    count: -1
 };
 
 
 const quizReducer = (state:quizState = initialState, action:actionType ) : quizState => {
     switch(action.type){
         case actionTypes.FETCHQUIZ :
-            return state;
+            const data:question[] = action.data.results.map( (obj: APIquizresponse) => {
+                return {
+                    question: obj.question,
+                    options: [...obj.incorrect_answers, obj.correct_answer],
+                    answer: obj.correct_answer,
+                    submitted: false
+                }
+            })
+            return {...state, quizdata: data};
         case actionTypes.STARTQUIZ:
             return {
                 ...state,
                 active: true
+            }
+        case actionTypes.CONCLUDEQUIZ:
+            return {
+                ...state,
+                active: false,
+                concluded: true
             }
         case actionTypes.PLAYAGAIN:
             const best = state.correct > state.bestScore ? state.correct : state.bestScore;
@@ -67,6 +63,16 @@ const quizReducer = (state:quizState = initialState, action:actionType ) : quizS
                 ...state,
                 currentIndex: updatedIn,
                 concluded: updatedIn === -1
+            }
+        case actionTypes.RESET_CLOCK:
+            return {
+                ...state,
+                count: -1
+            }
+        case actionTypes.UPDATE_COUNT:
+            return {
+                ...state,
+                count: action.count
             }
         default: return state
     }

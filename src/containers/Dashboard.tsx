@@ -1,12 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import {Colors} from '../constants/colors';
 import { quizState } from '../store/types';
 
 const Container  = styled.section`
-    background-color: ${Colors.primary};
-    color: ${Colors.secondary};
+    background-color: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.secondary};
     width: 100%;
     height: 20vh;
     padding: 1em;
@@ -26,6 +25,7 @@ const Dashboard: React.FC = () => {
     const quizdata = useSelector((state:quizState) => state.quizdata);
     const current = useSelector((state:quizState) => state.currentIndex) + 1;
     const bestScore = useSelector((state:quizState) => state.bestScore);
+    const count = useSelector((state:quizState) => state.count);
 
     return (
     <Container>
@@ -39,7 +39,7 @@ const Dashboard: React.FC = () => {
         </Column>
         <Column>
             <h3>Time Remaining</h3>
-            <p>The countdown happens here</p>
+            {count >= 0? <p> {count} </p> : ' - '}
         </Column>
         <Column>
             <h3>Your Best Score</h3>

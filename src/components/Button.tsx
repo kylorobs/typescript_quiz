@@ -1,15 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Colors } from '../constants/colors';
+
 
 interface ButtonProps {
-    readonly btntype: 'primary' | 'secondary';
+    readonly primary?: boolean;
+    readonly secondary?: boolean;
     clicked: Function;
 }
 
-const ButtonStyled = styled.button<ButtonProps>`
-    background-color:  ${props => props.btntype === 'primary'? Colors.primary : Colors.secondary}; 
-    color: ${Colors.white};
+const ButtonStyled = styled.button<ButtonProps>` 
+    ${props => props.primary && `
+    background-color: ${props.theme.colors.primary};
+    `}
+    ${props => props.secondary && `
+    background-color: ${props.theme.colors.secondary};
+    `}
+
+    color: ${props => props.theme.colors.white};
     min-width: 3em;
     padding: 1em;
     font-size: 18px;
@@ -17,8 +24,8 @@ const ButtonStyled = styled.button<ButtonProps>`
 
     &:hover {
         cursor: pointer;
-        background-color: ${Colors.white};
-        color: ${Colors.primary};
+        background-color: ${props => props.theme.colors.white};
+        color: ${props => props.theme.colors.primary};
     }
 `
 
