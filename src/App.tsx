@@ -10,9 +10,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Switch>
-        <Route path='/begin' component={Quiz}></Route>
-        {/* <Route path='/profile'></Route>
-        <Route path='/topics'></Route> */}
+        <Route path='/quiz' component={Quiz}></Route>
         <Route exact path='/' component={Home}></Route>
         <Route render={()=> <h2>Oh no! You have hit the 404 page :(</h2>} ></Route>
       </Switch>

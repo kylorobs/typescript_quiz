@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import * as actions from '../store/actions';
 import { quizState } from '../store/types';
 import Dashboard from './Dashboard';
+import { useHistory } from "react-router-dom";
 
 const Container = styled.section`
     height: 80vh;
@@ -39,14 +40,18 @@ const Quiz: React.FC = () => {
     const count = useSelector((state:quizState) => state.count);
 
     const dispatch = useDispatch();
-
+    const history = useHistory();
+    
     useEffect(() => {
-        dispatch(actions.fetchQuiz());
-    }, [dispatch])
+        if (quizdata.length < 1)dispatch(actions.fetchQuiz());
+        else if (active) history.push(`/quiz/q/${current+1}`)
+        else history.push(`/quiz`)
+    }, [dispatch, quizdata, current, active, concluded]);
 
-    const submitanswer = (submitted: string) => {
+
+    const submitanswer = (submitted: string) : void => {
         if (submitted === quizdata[current].answer) dispatch(actions.answeredCorrect())
-        else dispatch(actions.answeredWrong())
+        else dispatch(actions.answeredWrong());
     }
 
     let quizBoard:any;
