@@ -10,7 +10,6 @@ export interface quizState {
     currentIndex: number;
     concluded: boolean;
     active: boolean;
-    bestScore: number;
     count: number;
 }
 
@@ -20,6 +19,12 @@ export interface question {
     options: string[];
     answer: string;
     submitted: boolean;
+}
+
+export interface user {
+    bestScore: number;
+    selectedTopic: string;
+    prevTopics: string[];
 }
 
 export interface APIquizresponse {

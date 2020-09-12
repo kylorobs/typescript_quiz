@@ -7,7 +7,6 @@ const initialState:quizState = {
     currentIndex: 0,
     concluded: false,
     active: false,
-    bestScore: 0,
     count: -1
 };
 
@@ -36,15 +35,13 @@ const quizReducer = (state:quizState = initialState, action:actionType ) : quizS
                 concluded: true
             }
         case actionTypes.PLAYAGAIN:
-            const best = state.correct > state.bestScore ? state.correct : state.bestScore;
             return {
                 ...state,
                 active: true,
                 currentIndex: 0,
                 correct: 0,
-                bestScore: best,
                 concluded: false
-            }
+        }
         case actionTypes.ANSWERED_CORRECT:
             const index = state.currentIndex + 1 
             const updatedIndex = index >= state.quizdata.length ? -1 : index;

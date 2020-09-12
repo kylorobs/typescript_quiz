@@ -43,10 +43,10 @@ const Quiz: React.FC = () => {
     const history = useHistory();
     
     useEffect(() => {
-        if (quizdata.length < 1)dispatch(actions.fetchQuiz());
+        if (quizdata.length < 1) dispatch(actions.fetchQuiz());
         else if (active) history.push(`/quiz/q/${current+1}`)
         else history.push(`/quiz`)
-    }, [dispatch, quizdata, current, active, concluded]);
+    }, [dispatch, quizdata, current, active, concluded, history]);
 
 
     const submitanswer = (submitted: string) : void => {

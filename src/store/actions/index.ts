@@ -6,4 +6,9 @@ export {
     playAgain,
     getReady,
     startCountdown
-} from './actionCreators'
+} from './quizActionCreators';
+
+export {
+    updateBest,
+    changeTopic
+} from './userActionCreators';
