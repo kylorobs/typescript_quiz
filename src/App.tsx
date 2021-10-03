@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -12,7 +12,8 @@ const Layout = styled.div`
   min-height: 100vh;
 `
 
-function App() {
+const App = () => {
+
   return (
     <ThemeProvider theme={theme}>
       <Layout>

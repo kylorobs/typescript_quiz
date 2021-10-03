@@ -14,6 +14,10 @@ export const fetchQuiz = () => {
     }
 }
 
+export fetchTopics = () => {
+    
+}
+
 const updateQuestions =( data:any ):actionType => {
     return {
         type: actionTypes.FETCHQUIZ,

@@ -13,6 +13,17 @@ export interface quizState {
     count: number;
 }
 
+export interface user {
+    bestScore: number;
+    selectedTopic: string;
+    prevTopics: string[];
+}
+
+export interface appState {
+    quiz: quizState,
+    user: user
+}
+
 
 export interface question {
     question: string;
@@ -21,11 +32,6 @@ export interface question {
     submitted: boolean;
 }
 
-export interface user {
-    bestScore: number;
-    selectedTopic: string;
-    prevTopics: string[];
-}
 
 export interface APIquizresponse {
         "category": string,

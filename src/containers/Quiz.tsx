@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import NoticeBoard from './NoticeBoard';
 import Button from '../components/Button';
 import * as actions from '../store/actions';
-import { quizState } from '../store/types';
+import { appState } from '../store/types';
 import Dashboard from './Dashboard';
 import { useHistory } from "react-router-dom";
 
@@ -32,12 +32,12 @@ const Options = styled.div`
 `
 
 const Quiz: React.FC = () => {
-    const quizdata = useSelector((state:quizState)=> state.quizdata);
-    const active = useSelector((state:quizState) => state.active);
-    const current = useSelector((state:quizState) => state.currentIndex)
-    const correct = useSelector((state:quizState) => state.correct);
-    const concluded = useSelector((state:quizState) => state.concluded);
-    const count = useSelector((state:quizState) => state.count);
+    const quizdata = useSelector((state:appState)=> state.quiz.quizdata);
+    const active = useSelector((state:appState) => state.quiz.active);
+    const current = useSelector((state:appState) => state.quiz.currentIndex)
+    const correct = useSelector((state:appState) => state.quiz.correct);
+    const concluded = useSelector((state:appState) => state.quiz.concluded);
+    const count = useSelector((state:appState) => state.quiz.count);
 
     const dispatch = useDispatch();
     const history = useHistory();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { quizState } from '../store/types';
+import { appState } from '../store/types';
 
 const Container  = styled.section`
     background-color: ${props => props.theme.colors.primary};
@@ -21,11 +21,11 @@ const Column = styled.div`
 
 
 const Dashboard: React.FC = () => {
-    const correct = useSelector((state:quizState) => state.correct);
-    const quizdata = useSelector((state:quizState) => state.quizdata);
-    const current = useSelector((state:quizState) => state.currentIndex) + 1;
-    const bestScore = useSelector((state:quizState) => state.bestScore);
-    const count = useSelector((state:quizState) => state.count);
+    const correct = useSelector((state:appState) => state.quiz.correct);
+    const quizdata = useSelector((state:appState) => state.quiz.quizdata);
+    const current = useSelector((state:appState) => state.quiz.currentIndex) + 1;
+    const bestScore = useSelector((state:appState) => state.user.bestScore);
+    const count = useSelector((state:appState) => state.quiz.count);
 
     return (
     <Container>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { appState } from '../store/types';
 
 
 const Header = styled.header`
@@ -33,13 +34,12 @@ const Container = styled.section`
 
 
 const home: React.FC = () => {
+
+    const topics = useSelector((state:appState) => state.quiz.topics)
     
-    // useEffect(()=>{
-    //     fetch()
-    //       .then(res=> res.json())
-    //       .then(results => dispatch())
-    //       .catch(er =>  console.log(er))
-    //   }, [])
+    useEffect(()=>{
+
+      }, [])
 
     return (
     <Header>
